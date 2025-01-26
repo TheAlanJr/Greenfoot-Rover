@@ -1,0 +1,333 @@
+  ____ ____  _____ _____ _   _ _____ ___   ___ _____ 
+ / ___|  _ \| ____| ____| \ | |  ___/ _ \ / _ \_   _|
+| |  _| |_) |  _| |  _| |  \| | |_ | | | | | | || |  
+| |_| |  _ <| |___| |___| |\  |  _|| |_| | |_| || |  
+ \____|_| \_\_____|_____|_| \_|_|   \___/ \___/ |_|  
+
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+https://www.ionos.de/digitalguide/websites/web-entwicklung/java-befehle/
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+
+================================================================================================
+1. Das Szenario "Planeterkundung" kennenlernen
+================================================================================================
+Erkläre den Unterschied zwischen Anfragen und Aufträgen:
+
+Bei einem Auftrag (verändernde Methode) wird kein Wert zurückgegeben,
+während es bei einer Anfrage (sondierende Methode) eine Antwort, also ein Rückgabewert kommen soll (bspw. true/false).
+
+
+
+
+
+================================================================================================
+2. Lernkarte "Die Welt des Mars-Rovers": Karte erstellen und abspeichern
+================================================================================================
+Wofür steht das Z?
+Das „Z“ in der Kartendatei ".\n.\n.\n....ZRZ...." ist dafür zuständig, ein beliebiges Objekt zu laden. Das „Z“ steht wohl für Zufall.
+Karten-Codierung Dokumentation:
+\n: Neue Zeile im Text
+.: Leeres Feld
+H: Hügel
+M: Marke
+G: Gestein
+R: Rover
+
+Programmiere den Rover so, dass er nicht die Marke entfernt, sondern das Gestein analysiert.
+
+    public void act() {
+        fahre();
+        fahre();
+        fahre();
+        analysiereGestein();
+    }
+
+
+
+
+
+================================================================================================
+3. Die erste Methode schreiben
+================================================================================================
+Schreibe eine neue Methode, die folgendes tut: Sofern an der Position vier Felder vor dem Rover ein Gestein vorhanden ist, so analysiert er es. Nach Ausführung der Methode befindet sich der Rover auf dem selben Feld wie zuvor.
+
+    public void vierFelderGesteinCheck() {
+        int posX = getX();
+        int posY = getY();
+
+        fahre();
+        fahre();
+        fahre();
+        fahre();
+        analysiereGestein();
+        drehe("links");
+        drehe("links");
+        fahre();
+        fahre();
+        fahre();
+        fahre();
+    }
+
+
+
+
+
+================================================================================================
+Weitere Übungen: Erste Methoden - Lernkarte: "Die Fähigkeiten des Rovers"
+================================================================================================
+Programmiere den Rover so, dass er drei Felder nach vorne fährt und dort eine Marke ablegt.
+
+    public void markeAblegen() {
+        fahre();
+        fahre();
+        fahre();
+        setzeMarke();
+    }
+
+
+Ändere das Programm so ab, dass der Rover ein Quadrat der Kantenlänge vier abfährt und an jeder Ecke eine Marke platziert.
+
+    public void quadratMarkeAblegen() {
+
+        for(int i = 0; i < 5; i++) {
+            fahre();
+            fahre();
+            fahre();
+            fahre();
+            setzeMarke();
+            drehe("links");
+        }
+    }
+
+
+
+Erstelle ein neues Programm, das den Rover das Gestein auf der Karte unten analysieren lässt.
+Kartendaten: ".\n.\n.\n...R\n.\n..hhhhhhhhhh\n..........gh\n.......hhhhh"
+
+    public void parcourGesteinsAnalyse() {
+        drehe("rechts");
+        drehe("rechts");
+        fahre();
+        fahre();
+        drehe("links");
+        fahre();
+        fahre();
+        fahre();
+        drehe("links");
+        for(int i = 0; i < 10; i++) { 
+            fahre();
+        }
+        analysiereGestein();
+    }
+
+Programmiere den Rover jeweils so, dass er alle Gesteine in der gezeigten Welt einsammelt. Notiere das Programm zuerst auf einem Blatt, bevor du es in Greenfoot eingibst.
+Kartendaten: ".\n.\n.\n.....RGGGG\n.....G...G\n.....GGGGG"
+    
+    public void sammleGesteinEins() {
+        for(int i = 0; i < 4; i++) { 
+            fahre();
+            analysiereGestein();
+        }
+        drehe("rechts");
+        for(int i = 0; i < 2; i++) { 
+            fahre();
+            analysiereGestein();
+        }
+        drehe("rechts");
+        for(int i = 0; i < 4; i++) { 
+            fahre();
+            analysiereGestein();
+        }
+        drehe("rechts");
+        fahre();
+        analysiereGestein();
+    }
+
+
+
+
+
+================================================================================================
+4. Aufgabe: Wiederholung
+================================================================================================
+Schreibe eine Methode, die eine Gesteinsprobe in unbekannter Entfernung analysiert.
+/**
+ * Fährt solange, bis Gestein gefunden --> analyisert wird
+ */
+    public void gesteinsSuche() {
+        while(!gesteinVorhanden()) {
+        fahre();
+        }
+        analysiereGestein();
+    }
+
+Erweitere die Methode aus 2., so dass mehrere Gesteinsproben analysiert werden, bis eine Marke erreicht wird.
+/**
+* Fahre und analysiere jedes Gestein auf dem Weg bis er bei der Marke ist.
+*/
+    public void gesteinsSucheBisMarke() {
+      while(!markeVorhanden()) {
+          fahre();
+          if (gesteinVorhanden()) {
+              analysiereGestein();
+          }
+      }
+      entferneMarke();
+    }
+
+
+
+================================================================================================
+Weitere Übungen zur Wiederholung
+================================================================================================
+Der Rover steht neben einem Rechteck aus Hügeln und soll einmal um den gesammten Hügel fahren. Dazu legt er zunächst eine Marke ab und fährt dann solange, bis er die Marke wieder erreicht hat.
+Implementiere einen Algorithmus, der den Rover für beliebig große Rechtechte eine Runde fahren lässt.
+    
+    public void rechtecksMarke() {
+        setzeMarke();
+        fahre();
+        for(int i = 0; i < 4; i++) {
+            while(huegelVorhanden("rechts")) {
+                fahre();
+            }
+            drehe("rechts");
+            fahre();
+        }
+    }
+
+
+
+Der Rover steht vor einer Reihe mit Marken. Auf jedem Feld können eine oder auch mehrere Marken liegen.
+Der Rover soll vorwärts fahren, bis er auf einem Feld ankommt, das keine Marke enthält, und auf dem Weg alle Marken einsammeln.
+
+    public void mehrereMarkenAnalyse() {
+        while(markeVorhanden()) {
+            while(markeVorhanden()) {
+                entferneMarke();
+            }
+            fahre();
+        }
+    }
+
+
+
+================================================================================================
+Gemischte Übungen
+================================================================================================
+Schreibe eine Methode für folgende Problemstellung:
+Der Rover soll einer Spur aus Marken folgen, die beliebig lang sein kann.
+Die Spur darf nur Linksknicks enthalten, die durch einen Hügel für den Rover erkennbar sind.
+
+    public void markenFolge() {
+        fahre();
+        while(markeVorhanden()) { 
+            if(huegelVorhanden("vorne")) {
+                drehe("links");
+            } else if(markeVorhanden() && !huegelVorhanden("vorne")) {
+                fahre();
+            }
+        }
+    }
+
+================================================================================================
+Aufgabe: Programme strukturieren I
+================================================================================================
+Was sind Vorteile, wenn ein Programm in einzelne Methoden aufgeteilt wird? Notiere im Heft.
+
+-Der code wird viel übersichtlicher
+-Man kann fehler besser erkennen und beheben ohne in andere Strukturen eingreifen zu müssen
+-Man muss nicht ständig sich widerholen --> Code erscheint kürzer 
+-Leichtere Aufteilung im Team. ("Ich implementiere fahre, du implementierst drehe.")
+
+Implementiere eine Methode public void umdrehen(), die den Rover um 180 Grad dreht.
+    public void umdrehen() {
+      drehe("rechts");
+      drehe("rechts");
+    }
+
+Implementiere eine Methode public void vierVorUndRechts(),
+die den Rover vier vor fahren lässt und ihn dann nach rechts dreht.
+    public void vierVorUndRechts() {
+        for(int i = 0; i < 4; i++) { 
+            fahre();
+        }
+         drehe("rechts");
+    }
+
+
+================================================================================================
+8. Aufgabe: Anfragen
+================================================================================================
+    public boolean huegelVorneVorhanden() {
+	    if( huegelVorhanden("vorne") ) {
+		    return true;
+	    } else {
+		    return false;
+	    }
+    }
+Analysiere den Quelltext oben und stelle Vermutungen über die Bedeutung der Schlüsselwörter boolean und return an.
+Notiere dir Stichpunkte im Heft.
+
+boolean:
+-Datentyp für Wahrheitswerte: nur true oder false
+-Man kann prüfen, ob etwas stimmt oder nicht
+
+return:
+-gibt den Wert vom boolean (true oder false) zurück 
+-die Methode wird beendet, sobald return aufgerufen wurde
+
+
+    public boolean wasTesteIch() {
+        if( huegelVorhanden("rechts") ) {
+            if( huegelVorhanden("links") ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+Analysiere die oben gezeigte Anfrage und versuche einen passenden Bezeichner für sie zu finden.
+Erkläre dazu, was die Anfrage überprüft.
+Wenn kein Hügel rechts vorhanden ist, dann wird false zurückgegeben
+Wenn doch, dann wird noch geschaut, ob auch links ein Hügel vorhanden ist. Dann wird true zurückgegeben
+
+Programmiere den Rover in der act()-Methode dann so,
+dass er bis zum nächsten Hügel geradeaus fährt und auf dem Weg alle Markierungen einsammelt, die zwischen zwei Hügeln liegen.
+    public void act() {
+        while(!huegelVorhanden("vorne")) {
+            fahre();
+            if( huegelVorhanden("rechts") ) {
+                if( huegelVorhanden("links") ) {
+                    entferneMarke();
+                } 
+            }
+        }
+    }
+
+
+Implementiere eine Anfrage public boolean gesteinUndMarkeVorhanden(), 
+die prüft, ob auf dem aktuellen Feld sowohl ein Gestein, als auch eine Marke vorhanden sind.
+    public boolean gesteinUndMarkeVorhanden() {
+        if (gesteinVorhanden() && markeVorhanden()) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
+
+Implementiere eine Anfrage public boolean gesteinOderMarkeVorhanden(),
+die prüft, ob auf dem aktuellen Feld entweder ein Gestein, oder eine Marke vorhanden sind (oder auch beides).
+    public boolean gesteinOderMarkeVorhanden() {
+        if (gesteinVorhanden() || markeVorhanden()) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
